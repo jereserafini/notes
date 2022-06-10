@@ -22,11 +22,18 @@ const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow}) => {
         }
     };
 
+    // const categories = new Set()
+
+    // const addCategory = (e) => {
+    //   categories.add(e.target.previousSibling.value)
+    //   console.log(categories);
+    // }
+
+
   
     return (
       <>
-        <div className="container mt-3 d-flex align-item-center">
-          <h1 className="d-inline me-5">Notes</h1>
+        <div className="mt-3 d-flex align-item-center">
           <Button className="d-inline" variant="dark" onClick={handleShow}>
             Create note
           </Button>
@@ -66,6 +73,30 @@ const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow}) => {
                   value={modalData.content}
                 />
               </Form.Group>
+
+              {/* <Form.Group className="mb-3" controlId="floatingTextarea">
+                <Form.Label>Category</Form.Label>
+                <fieldset disabled>
+                  <Form.Control
+                    name="categories"
+                    as="textarea"
+                    value={categories}
+                  />
+                </fieldset>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="floatingTextarea">
+                <Form.Control
+                  name="category"
+                  onChange={handleChange}
+                  as="textarea"
+                  value={modalData.category}
+                  placeholder='Add category'
+                />
+                  <Button className='mt-1' variant="success" onClick={addCategory}>
+                    Add
+                  </Button>
+              </Form.Group> */}
 
               <Button className="me-2" variant="secondary" onClick={handleClose}>
                 Close

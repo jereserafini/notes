@@ -1,20 +1,26 @@
 import React from 'react'
 import { Button, Card } from 'react-bootstrap'
-import { MdDelete, MdArchive, MdEdit } from 'react-icons/md';
+import { MdDelete, MdArchive, MdUnarchive, MdEdit } from 'react-icons/md';
 
 const Note = ({id, title, content, active, handleDeleteNote, handleArchiveNote, handleUpdateNote}) => {
   return (
-        <Card className='note mb-4 mx-auto' style={{ width: '18rem' }}>
-            <Card.Body>
-                <Card.Title>{title}</Card.Title>
-                <Card.Text>
-                    {`id: ${id}`}<br/>
-                    {`content: ${content}`}<br/>
-                    {`active: ${active}`}
-                </Card.Text>
-                <div>
+        <Card className='mb-4' style={{ width: '18rem'}}>
+            <Card.Body className='d-flex flex-column justify-content-between'>
+                <div className='mb-3'>
+                    <Card.Title>{title}</Card.Title>
+                    <Card.Text>
+                        {content}
+                    </Card.Text>
+                </div>
+                <div className=''>
                     <Button variant="dark me-1" onClick={()=>handleUpdateNote(id)}><MdEdit/></Button>
-                    <Button variant="dark mx-1" onClick={()=>handleArchiveNote(id)}><MdArchive/></Button>
+                    <Button variant="dark mx-1" onClick={()=>handleArchiveNote(id)}>
+                        {active === true ?
+                            <MdArchive/>
+                        :
+                            <MdUnarchive/>
+                        }
+                    </Button>
                     <Button variant="danger mx-1" onClick={()=>handleDeleteNote(id)}><MdDelete/></Button>
                 </div>
             </Card.Body>
