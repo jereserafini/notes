@@ -1,14 +1,13 @@
 import React from 'react'
-import { Form } from 'react-bootstrap'
 
-const Select = () => {
+const Select = ({categories = [1,2,3,4,5,6,7,8,9,10]}) => {
   return (
-    <Form.Select aria-label="Default select example">
-      <option>Open this select menu</option>
-      <option value="1">One</option>
-      <option value="2">Two</option>
-      <option value="3">Three</option>
-    </Form.Select>
+    <select name="select" className='mt-4' onChange={(e) => console.log(e.target.value)}>
+            <option value={null}>Category filter</option>
+        {categories.map( e => 
+            <option key={e} value={e}>{e}</option>
+        )}
+    </select>
   )
 }
 

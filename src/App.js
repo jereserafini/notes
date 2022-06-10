@@ -11,6 +11,7 @@ function App() {
   const [modalData, setModalData] = useState({});
 
   const [show, setShow] = useState(false);
+  
 
   useEffect(() => {
     const savedNotes = JSON.parse(localStorage.getItem("notes"));

@@ -22,12 +22,12 @@ const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow}) => {
         }
     };
 
-    // const categories = new Set()
+    const categories = new Set()
 
-    // const addCategory = (e) => {
-    //   categories.add(e.target.previousSibling.value)
-    //   console.log(categories);
-    // }
+    const addCategory = (e) => {
+      categories.add(e.target.previousSibling.value)
+      console.log(categories);
+    }
 
 
   
@@ -58,7 +58,8 @@ const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow}) => {
                 <Form.Control
                   name="title"
                   onChange={handleChange}
-                  as="textarea"
+                  type="text"
+                  placeholder='Title'
                   value={modalData.title}
                 />
               </Form.Group>
@@ -71,6 +72,7 @@ const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow}) => {
                   as="textarea"
                   style={{ height: '100px' }}
                   value={modalData.content}
+                  placeholder='Content'
                 />
               </Form.Group>
 
@@ -83,20 +85,24 @@ const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow}) => {
                     value={categories}
                   />
                 </fieldset>
-              </Form.Group>
+              </Form.Group> */}
+
+              <div>
+                {categories}
+              </div>
 
               <Form.Group className="mb-3" controlId="floatingTextarea">
                 <Form.Control
                   name="category"
                   onChange={handleChange}
-                  as="textarea"
+                  type="text"
                   value={modalData.category}
                   placeholder='Add category'
                 />
-                  <Button className='mt-1' variant="success" onClick={addCategory}>
+                  <Button className='mt-3' variant="success" onClick={addCategory} >
                     Add
                   </Button>
-              </Form.Group> */}
+              </Form.Group>
 
               <Button className="me-2" variant="secondary" onClick={handleClose}>
                 Close
