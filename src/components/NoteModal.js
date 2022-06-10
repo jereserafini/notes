@@ -1,27 +1,21 @@
-import React, { useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap';
 
-const AddNote = ({handleAddNote}) => {
-    const [show, setShow] = useState(false);
+const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow}) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
-
-    const [data, setData] = useState({})
-  
 
     const handleChange = (e) => {
-      setData({
-        ...data,
+      setModalData({
+        ...modalData,
         [e.target.name]: e.target.value
       })
     }
 
     const handleSave = () => {
-        if (data.title.trim().length > 0 && data.content.trim().length > 0) {
+        if (modalData.title.trim().length > 0 && modalData.content.trim().length > 0) {
             setShow(false)
-            handleAddNote(data)
-            setData({
+            handleAddNote(modalData)
+            setModalData({
                 title: '',
                 content: ''
             })            
@@ -57,7 +51,9 @@ const AddNote = ({handleAddNote}) => {
                 <Form.Control
                   name="title"
                   onChange={handleChange}
-                  as="textarea"/>
+                  as="textarea"
+                  value={modalData.title}
+                />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="floatingTextarea">
@@ -66,7 +62,9 @@ const AddNote = ({handleAddNote}) => {
                   name="content"
                   onChange={handleChange}
                   as="textarea"
-                  style={{ height: '100px' }}/>
+                  style={{ height: '100px' }}
+                  value={modalData.content}
+                />
               </Form.Group>
 
               <Button className="me-2" variant="secondary" onClick={handleClose}>
@@ -85,4 +83,4 @@ const AddNote = ({handleAddNote}) => {
     );
 }
 
-export default AddNote
+export default NoteModal

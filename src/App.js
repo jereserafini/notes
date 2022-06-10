@@ -8,6 +8,10 @@ function App() {
 
   const [notes, setNotes] = useState([])
 
+  const [modalData, setModalData] = useState({})
+
+  const [show, setShow] = useState(false);
+
   useEffect(() => {
     const savedNotes = JSON.parse(localStorage.getItem('notes'))
     
@@ -20,23 +24,31 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes))
-
   }, [notes])
   
 
-  const addNote = ({title, content}) => {
+  const saveNote = ({title, content, id, active}) => {
     const newNote = {
-      id: nanoid(),
+      id: id ?? nanoid(),
       title,
       content,
-      active: true
+      active: active ?? true
     }
-    const newNotes = [...notes, newNote]
+
+    const newNotes = [...notes]
+
+    if (id) {
+      const index = newNotes.findIndex( note => note.id === id )
+      newNotes.splice( index, 1, newNote )
+    } else {
+      newNotes.push(newNote)
+    }
+
     setNotes(newNotes)
   }
 
   const deleteNote = (id) =>{
-    const newNotes = notes.filter( note => note.id !== id);
+    const newNotes = notes.filter( note => note.id !== id)
     setNotes(newNotes)
   }
 
@@ -54,9 +66,11 @@ function App() {
   }
 
   const updateNote = (id) => {
-    
-    notes.map( note => note.id === id)
-
+    const noteUpdate = notes.find( note => note.id === id)
+    console.log(noteUpdate)
+    setShow(true)
+    setModalData(noteUpdate)
+    console.log(modalData);
   }
 
   return (
@@ -67,12 +81,16 @@ function App() {
 
       <Route exact path="/" element={
         
-        <NoteList 
+        <NoteList
           notes={notes.filter( note => note.active === true)}
-          handleAddNote={addNote}
+          handleAddNote={saveNote}
           handleDeleteNote={deleteNote}
           handleArchiveNote={archiveNote}
           handleUpdateNote={updateNote}
+          modalData={modalData}
+          setModalData={setModalData}
+          show={show}
+          setShow={setShow}
         />
         
       }/>
@@ -81,10 +99,14 @@ function App() {
         
         <NoteList 
           notes={notes.filter( note => note.active === false)}
-          handleAddNote={addNote}
+          handleAddNote={saveNote}
           handleDeleteNote={deleteNote}
           handleArchiveNote={archiveNote}
           handleUpdateNote={updateNote}
+          modalData={modalData}
+          setModalData={setModalData}
+          show={show}
+          setShow={setShow}
         />
         
       }/>

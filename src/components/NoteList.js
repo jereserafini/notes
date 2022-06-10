@@ -1,12 +1,18 @@
 import React from 'react'
-import AddNote from './AddNote'
+import NoteModal from './NoteModal'
 import Note from './Note'
 
-const NoteList = ({notes, handleAddNote, handleDeleteNote, handleArchiveNote, handleUpdateNote}) => {
+const NoteList = ({notes, handleAddNote, handleDeleteNote, handleArchiveNote, handleUpdateNote, setModalData, modalData, show, setShow}) => {
 
   return (
     <div className='mt-5'>
-        <AddNote handleAddNote={handleAddNote}/>
+        <NoteModal 
+          handleAddNote={handleAddNote}
+          modalData={modalData}
+          setModalData={setModalData}
+          show={show}
+          setShow={setShow}
+        />
         <div className='mt-5 d-flex flex-wrap'>
             {notes.map( (note) =>
                 <Note
