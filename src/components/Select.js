@@ -1,14 +1,16 @@
 import React from 'react'
 
-const Select = ({categories = [1,2,3,4,5,6,7,8,9,10]}) => {
+const Select = ({notes, handleSelect}) => {
+
   return (
-    <select name="select" className='mt-4' onChange={(e) => console.log(e.target.value)}>
-            <option value={null}>Category filter</option>
-        {categories.map( e => 
-            <option key={e} value={e}>{e}</option>
+    <select name="select" className='mt-4' onChange={handleSelect}>
+        <option value={''}>Category filter</option>
+        {notes.map( e =>
+            (e.category !== '') && <option key={e.category} value={e.category}>{e.category}</option>
         )}
     </select>
   )
 }
 
 export default Select
+

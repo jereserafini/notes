@@ -6,7 +6,6 @@ const NoteList = ({notes, handleDeleteNote, handleArchiveNote, handleUpdateNote}
 
   return (
     <>
-      <Select/>
       <div className='mt-4 d-flex flex-wrap justify-content-between'>
           {notes.map( (note) =>
               <Note
@@ -18,6 +17,7 @@ const NoteList = ({notes, handleDeleteNote, handleArchiveNote, handleUpdateNote}
                   handleArchiveNote={handleArchiveNote}
                   handleUpdateNote={handleUpdateNote}
                   key={note.id}
+                  category={note.category}
               />
           )}
       </div>

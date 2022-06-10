@@ -4,6 +4,7 @@ import NoteList from "./components/NoteList";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import NoteModal from "./components/NoteModal";
+import Select from "./components/Select";
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -12,6 +13,7 @@ function App() {
 
   const [show, setShow] = useState(false);
   
+  const [categories, setCategories] = useState('')
 
   useEffect(() => {
     const savedNotes = JSON.parse(localStorage.getItem("notes"));
@@ -25,12 +27,13 @@ function App() {
     localStorage.setItem("notes", JSON.stringify(notes));
   }, [notes]);
 
-  const saveNote = ({ title, content, id, active }) => {
+  const saveNote = ({ title, content, id, active, category}) => {
     const newNote = {
       id: id ?? nanoid(),
       title,
       content,
       active: active ?? true,
+      category
     };
 
     const newNotes = [...notes];
@@ -41,7 +44,6 @@ function App() {
     } else {
       newNotes.push(newNote);
     }
-
     setNotes(newNotes);
   };
 
@@ -70,10 +72,18 @@ function App() {
     setModalData(noteUpdate);
   };
 
+  const handleSelect = (e) => {
+    setCategories(e.target.value)
+  }
+
   return (
     <BrowserRouter>
-      <Header />
+      <Header />      
       <div className="container">
+        <Select 
+          notes={notes}
+          handleSelect={handleSelect}
+        />
         <Routes>
           <Route
             exact
@@ -89,7 +99,7 @@ function App() {
                   setShow={setShow}
                 />
                 <NoteList
-                  notes={notes.filter((note) => note.active === true)}
+                  notes={notes.filter((note) => note.active === true && (note.category === categories || categories === ''))}
                   handleDeleteNote={deleteNote}
                   handleArchiveNote={archiveNote}
                   handleUpdateNote={updateNote}
@@ -104,7 +114,7 @@ function App() {
               <>
                 <h1 className="mt-3">Archived notes</h1>
                 <NoteList
-                  notes={notes.filter((note) => note.active === false)}
+                  notes={notes.filter((note) => note.active === false && (note.category === categories || categories === ''))}
                   handleDeleteNote={deleteNote}
                   handleArchiveNote={archiveNote}
                   handleUpdateNote={updateNote}

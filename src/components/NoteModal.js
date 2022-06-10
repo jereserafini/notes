@@ -1,6 +1,6 @@
 import { Button, Form, Modal } from 'react-bootstrap';
 
-const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow}) => {
+const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow, categories, setCategories}) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -17,17 +17,18 @@ const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow}) => {
             handleAddNote(modalData)
             setModalData({
                 title: '',
-                content: ''
-            })            
+                content: '',
+                category: ''
+            })
         }
     };
 
-    const categories = new Set()
-
-    const addCategory = (e) => {
-      categories.add(e.target.previousSibling.value)
-      console.log(categories);
-    }
+    // const addCategory = (e) => {
+    //   const category = e.target.previousSibling.value
+    //   const newCategories = [...categories, category]
+    //   setCategories(newCategories)
+    //   handleAddNote()
+    // }
 
 
   
@@ -75,21 +76,10 @@ const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow}) => {
                   placeholder='Content'
                 />
               </Form.Group>
-
-              {/* <Form.Group className="mb-3" controlId="floatingTextarea">
-                <Form.Label>Category</Form.Label>
-                <fieldset disabled>
-                  <Form.Control
-                    name="categories"
-                    as="textarea"
-                    value={categories}
-                  />
-                </fieldset>
-              </Form.Group> */}
-
-              <div>
-                {categories}
-              </div>
+              
+              {/* <div>
+                {categories.map(category => category)}
+              </div> */}
 
               <Form.Group className="mb-3" controlId="floatingTextarea">
                 <Form.Control
@@ -99,9 +89,9 @@ const NoteModal = ({handleAddNote, setModalData, modalData, show, setShow}) => {
                   value={modalData.category}
                   placeholder='Add category'
                 />
-                  <Button className='mt-3' variant="success" onClick={addCategory} >
+                  {/* <Button className='mt-3' variant="success" onClick={addCategory} >
                     Add
-                  </Button>
+                  </Button> */}
               </Form.Group>
 
               <Button className="me-2" variant="secondary" onClick={handleClose}>
